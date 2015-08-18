@@ -18,6 +18,21 @@ requirejs(
   ["jquery", "firebase", "hbs", "bootstrap"], 
   function($, _firebase, Handlebars, bootstrap) {
 
+    var myFirebaseRef = new Firebase("https://caitlin-family.firebaseio.com/");
+    
+    
+    myFirebaseRef.child('songs').on("value", function(snapshot) {
+   
+      familyMembers = snapshot.val();
+
+      for (var key in familyMembers) {
+
+        familyArray[familyArray.length] = familyMembers[key];
+      }
+      console.log("familyMembers", familyMembers);
+
+    });
+
 
 
 
