@@ -1,20 +1,18 @@
-// define(["jquery", "q"], function($, Q) {
+define(function() {
   
-//   return function(newSong){
+  return {
 
-//     var deferred = Q.defer();
+    addMembers: function(newMember) {
 
-//       $.ajax({
-//         url:"https://vivid-heat-717.firebaseio.com/songs.json",
-//         method: "POST",
-//         data: newSong
-//       }).done(function(addedSong){
-//           deffered.resolve(addedSong);
-//       }).fail(function (xhr, status, error){
-//           deferred.reject(error);
-//       });
+      $.ajax({
+        url:"https://caitlin-family.firebaseio.com/family.json",
+        method: "POST",
+        data: newMember
+      }).done(function(addedMember){
+        console.log("addedMember", addedMember);
+      });
+    }
       
-//     return deferred.promise;
 
-//   };
-// });
+  };
+});

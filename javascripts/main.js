@@ -39,9 +39,29 @@ requirejs(
     function loadFamily(data) {
       console.log("loadFamily called", data);
       require(['hbs!../templates/familyMembers'], function(template) {
-        $("#familyList").append(template({family: data}));
+        $("#familyList").html(template({family: data}));
       });
     }
+
+    $("#addButton").on("click", function(){
+    var familyData = {};
+    
+    //grab values from form and store in object
+      familyData = {
+        "name": $("#fullName").val(),
+        "age": $("#age").val(),
+        "gender": $("#gender").val(),
+        "skills": $("#skills").val()
+      };
+
+      familyData = JSON.stringify(familyData);
+      console.log("stringified familyData", familyData);
+      addMembers.addMembers(familyData);
+      $("#fullName").val("");
+      $("#age").val("");
+      $("#gender").val("");
+      $("#skills").val("");
+  });
 
 });
 
