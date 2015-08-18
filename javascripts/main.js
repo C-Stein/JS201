@@ -15,25 +15,35 @@ requirejs.config({
 });
 
 requirejs(
-  ["jquery", "firebase", "hbs", "bootstrap"], 
-  function($, _firebase, Handlebars, bootstrap) {
+  ["jquery", "firebase", "hbs", "bootstrap", "addMembers", "deleteMembers"], 
+  function($, _firebase, Handlebars, bootstrap, addMembers, deleteMembers) {
 
     var myFirebaseRef = new Firebase("https://caitlin-family.firebaseio.com/");
+    var familyArray = [];
+    var familyMembers;
     
-    
-    myFirebaseRef.child('songs').on("value", function(snapshot) {
+    myFirebaseRef.child("family").on("value", function(snapshot) {
    
       familyMembers = snapshot.val();
+      console.log(familyMembers);
+      
 
       for (var key in familyMembers) {
 
         familyArray[familyArray.length] = familyMembers[key];
       }
       console.log("familyMembers", familyMembers);
-
+      loadFamily(familyMembers);
     });
 
-
-
+    function loadFamily(data) {
+      console.log("loadFamily called", data);
+      require(['hbs!../templates/familyMembers'], function(template) {
+        $("#familyList").append(template({family: data}));
+      });
+    }
 
 });
+
+
+
